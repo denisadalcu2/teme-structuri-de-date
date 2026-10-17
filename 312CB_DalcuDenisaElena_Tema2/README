@@ -1,0 +1,86 @@
+In tema2.h am declarat structurile pentru arborele de regasire si listele din cerinta, astfel avand:
+-o lista simplu inlantuita pentru cuvinte-cheie
+-o lista dublu inlantuita pentru fisiere
+-o lista de referinte catre fisiere
+-nodul din arborele multicai de regasire, care stocheaza primul copil, fratele urmator,
+ daca este terminal(corespunzator ultimei litere ale unui cuvant), si lista de referinta
+  catre fisierele care contin cuvantul respectiv(in cazul unui nod terminal).
+De asemenea, am declarat si structura pentru heap si functia de comparare.
+
+Apoi, am implementat functiile necesare, astfel:
+
+-in fisiere.c am implementat functiile corespunzatoare manipularii fisierelor, si anume:
+
+	-aloca_fisier, care aloca spatiu pentru o "celula" din lista de fisiere;
+
+	-ad_fisier, care adauga in lista dublu inlantuita un nou fisier;
+
+	-cauta_fisier, care verifica existenta in lista a unui fisier cu un anumit identificator;
+
+	-adauga_cuvant_fisier, care insereaza un nou cuvant cheie in lista de cuvinte a unui fisier;
+
+-in functii_arb.c, am implementat functiile corespunzatoare arboralui multicai de regasire, astfel:
+
+	-createNode, care aloca spatiu pentru un nou nod si ii initializeaza campurile;
+
+	-addChild, care adauga cuvinte in arborele de regasire in ordine lexicografica;
+
+	-adauga_cuv, care adauga un nou cuvant in arbore, folosind functia addChild, 
+	si returneaza nodul terminal al cuvantului inserat;
+
+	-ad_referinta, care adauga la nodul terminal al unui cuvant lista de referinte 
+	catre fisierele care contin cuvantul cheie;
+
+	-cauta_nod_terminal, care cauta si returneaza nodul corespunzator ultimei litere
+	 a unui cuvant;
+
+	-elim_ref, care sterge referinta catre un fisier din lista de referinte a unui
+	 nod terminal;
+
+	-print_dfs, care parcurge in adancime arborele de regasire, reconstruieste cuvintele,
+	 iar cand ajunge la un nod terminal, afiseaza cuvantul, numarul de fisiere in care apare
+	  si id-urile fisierelor sortate;
+
+	-elim_din_arb, care elimina un nod din arbore si returneaza 1 daca nodul poate fi eliminat;
+
+-in functii_heap.c, am implementat functiile de prelucrare a heap-ului, conform celor implementate
+ la laborator, astfel:
+
+	-AlocaHeap, care aloca spatiu pentru un nou heap si initializeaza campurile;
+
+	-RelMaxHeap, care e functia de comparatie, si compara scorurile a doua fisiere;
+
+	-pushUp, care urca elementul de la pozitia pos spre radacina, daca are scorul mai mare
+	 decat tatal sau;
+
+	-inserareHeap, care insereaza un nou element in heap si apeleaza pushUp pentru a-l pune
+	 la pozitia corecta;
+
+	-pushDown, care coboara elementul de la pozitia pos spre frunze, daca scorul sau este
+	 mai mic decat al fiului sau;
+
+	-extrHeap, care extrage elementul din varful heap-ului;
+
+	-DistrugereHeap, care elibereaza memoria;
+
+-in tema2.c, am implementat functiile din cerinta, astfel:
+	-ADD, care adauga un nou fisier in sistem
+
+	-DEL, care strge un fisier din sistem;
+
+	-PRINT, care, cu ajutorul functiei prin_dfs, printeaza cuvintele din arbore, numarul
+	 de fisiere care le contin si id-urile fisierelor respective;
+
+	-ADDKW, care adauga un cuvant cheie in lista unui fisier;
+
+	-DELKW, care sterge un cuvant cheie din lista unui fisier;
+
+	-FIND, care cauta nodul terminal al unui cuvant-cheie dat si afiseaza toate fisierele
+	 din lista de referinte si numarul lor;
+
+	-TOPK, care afiseaza cele mai bune k fisiere pentru un cuvant-cheie, ordonate dupa scor,
+	 utilizand un max-heap.
+
+
+
+
