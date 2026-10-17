@@ -1,0 +1,48 @@
+/* DALCU Denisa-Elena 312CB */
+
+Rezolvarea este impartita in 3 fisiere, si anume:
+- structuri.h, unde am definit structurile de date si am declarat functiile utilizate
+- functii.c, unde am implementat functiile necesare rezolvarii
+- main.c, unde am citit datele de intrare si am apelat functiile
+
+In ceea ce priveste structurile de date, am salvat informatiile astfel:
+- echipajele de interventie au fost salvate intr-un vector de structuri, alocat dinamic
+in functie de numarul de echipaje;
+- incidentele au fost salvate intr-o lista dublu inlantuita circulara cu santinela, unde 
+santinela este incidentul finctiv de test;
+- interventiile au fost, de asemenea, salvate intr-o lista dublu inlantuita circulara cu santinela, 
+santinela avand pointerii incident si unit setati la NULL.
+- sistemul contine vectorul de echipaje, santinela listei de incidente si santinela listei de
+interventii;
+
+Am utilizat 4 cozi circulare simplu inlantuite, care stocheaza pointeri, nu structuri:
+- queue_high, care stocheaza incidente cu prioritate "high";
+- queue_medium, care stocheaza incidente cu prioritate "medium";
+- queue_low, care stocheaza incidente cu prioritate "low";
+- queue_available_units, care stocheaza echipajele disponibile;
+
+Pentru operatia UNDO_LAST_DISPATCH, am implementat o stiva, care stocheaza pointeri catre nodurile
+de interventie create la fiecare DISPATCH reusit.
+
+In ceea ce priveste operatiile, acestea sunt 8:
+- ADD_INCIDENT, care un nou nod si il insereaza la finalul listei de incidente, si salveaza pointerul 
+catre el in lista ce corespunde prioritatii incidentului;
+- CHECK_UNITS_AVAILABILITY, care afiseaza lungimea cozii queue_available_units, adica afiseaza cate
+echipaje sunt disponibile;
+- DISPATCH, care extrage primul element in ordinea prioritatii si primul echipaj disponibil si 
+creeaza o noua interventie, pe care o insereaza in lista de interventii si salveaza un pointer catre ea
+in stiva istoric;
+- UNDO_LAST_DISPATCH, care cauta si scoate din stiva de interventii pana gaseste una care nu are 
+statusul "solved". Incidentul asociat interventiei revine la statusul "queued", si este plasat la 
+inceputul cozii corespunzatoare lui. Echipajului redevine disponibil si este adaugat la finalul cozii
+de echipaje disponibile. Nodul de interventie este eliminat din lista si eliberat;
+- SOLVED_INCIDENT, care cauta incidentul dupa id in lista, il marcheaza "solved" si elibereaza echipajul
+asociat lui;
+- SHOW_UNIT, care afiseaza detaliile echipajului cu id-ul cerut;
+- SHOW_INCIDENT, care afiseaza detaliile incidentului cu id-ul cerut;
+- SHOW_INTERVENTIONS, care afiseaza detaliile fiecarei interventii, cu statusul curent al incidentului asociat.
+
+Ulterior, am eliberat memoria utilizata cu ajutorul functiei DistrS, care elibereaza cozile, stiva de istoric,
+listele de incidente si interventii, vectorul de echipaje, si, in final, structura sys.
+
+
